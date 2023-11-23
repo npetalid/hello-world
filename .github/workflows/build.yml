@@ -14,7 +14,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
+
+    - name: Echo build number
+      run: echo ${{github.run_number}}
 
     - name: Run build script
       run: mvn clean install
