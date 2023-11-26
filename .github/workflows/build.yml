@@ -36,8 +36,8 @@ jobs:
       run: |
         git config user.email "nikos@petalidis.gr"
         git config user.name "Nikos Petalidis"
-        git tag rel-$VERSION
-        git push origin rel-$VERSION
+        git tag "rel-$VERSION"
+        git push origin "rel-$VERSION"
 
 #    - name: Build docker 2
 #      run: |
