@@ -34,5 +34,5 @@ jobs:
 
     - name: Build docker 2
       run: |
-        docker build -t ghcr.io/npetalid/App:$VERSION .
-        docker push ghcr.io/npetalid/App:$VERSION
+        docker build -t ghcr.io/npetalid/app:$VERSION .
+        docker push ghcr.io/npetalid/app:$VERSION
