@@ -30,14 +30,15 @@ jobs:
       run: mvn clean install
 
     - name: Set Version
-      run: export VERSION="1.0.${{ github.run_number }}"
-
+      run: |
+          export VERSION="1.0.${{ github.run_number }}"
+          echo "VERSION=1.0.${{ github.run_number }}" >> $GITHUB_ENV
     - name: Tag and Push
       run: |
         git config user.email "nikos@petalidis.gr"
         git config user.name "Nikos Petalidis"
-        git tag "rel-${{ VERSION }}"
-        git push origin "rel-${{ VERSION }}"
+        git tag "rel-${{ env.VERSION }}"
+        git push origin "rel-${{ env.VERSION }}"
 
 #    - name: Build docker 2
 #      run: |
