@@ -40,10 +40,10 @@ jobs:
         git tag "myrel-${{ env.VERSION }}"
         git push origin "myrel-${{ env.VERSION }}"
 
-#    - name: Build docker 2
-#      run: |
-#        docker build -t ghcr.io/npetalid/app:1.0.${{ github.run_number }} .
-#        docker push ghcr.io/npetalid/app:1.0.${{ github.run_number }}
+    - name: Build docker
+      run: |
+        docker build -t ghcr.io/npetalid/app:latest -t ghcr.io/npetalid/app:1.0.${{ github.run_number }} .
+        docker push --all-tags ghcr.io/npetalid/app
 
     - name: Create release files
       run: |
