@@ -37,8 +37,8 @@ jobs:
       run: |
         git config user.email "nikos@petalidis.gr"
         git config user.name "Nikos Petalidis"
-        git tag "rel-${{ env.VERSION }}"
-        git push origin "rel-${{ env.VERSION }}"
+        git tag "myrel-${{ env.VERSION }}"
+        git push origin "myrel-${{ env.VERSION }}"
 
 #    - name: Build docker 2
 #      run: |
@@ -55,8 +55,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        tag_name: myrel-${{ env.VERSION }}
+        release_name: Release ${{ env.VERSION }}
         body: |
           Changes in this Release
             - First Change
