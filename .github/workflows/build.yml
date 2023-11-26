@@ -31,3 +31,8 @@ jobs:
         git config user.name "Nikos Petalidis"
         git tag $VERSION
         git push origin $VERSION
+
+    - name: Build docker
+      run: |
+        docker build -t ghcr.io/npetalid/App:$VERSION
+        docker push ghcr.io/npetalid/App:$VERSION
