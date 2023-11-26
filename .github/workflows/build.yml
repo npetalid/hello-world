@@ -36,10 +36,40 @@ jobs:
       run: |
         git config user.email "nikos@petalidis.gr"
         git config user.name "Nikos Petalidis"
-        git tag $VERSION
-        git push origin $VERSION
+        git tag rel-$VERSION
+        git push origin rel-$VERSION
 
-    - name: Build docker 2
+#    - name: Build docker 2
+#      run: |
+#        docker build -t ghcr.io/npetalid/app:1.0.${{ github.run_number }} .
+#        docker push ghcr.io/npetalid/app:1.0.${{ github.run_number }}
+
+    - name: Create release files
       run: |
-        docker build -t ghcr.io/npetalid/app:1.0.${{ github.run_number }} .
-        docker push ghcr.io/npetalid/app:1.0.${{ github.run_number }}
+          echo 'Docker file: ghcr.io/npetalid/app:1.0.${{ github.run_number }}' > images.txt
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          Changes in this Release
+            - First Change
+              - Second Change
+        draft: false
+        prerelease: true
+
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+        asset_path: ./images.txt
+        asset_name: images.txt
+        asset_content_type: application/txt
