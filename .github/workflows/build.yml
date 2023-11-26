@@ -58,9 +58,7 @@ jobs:
         tag_name: myrel-${{ env.VERSION }}
         release_name: Release ${{ env.VERSION }}
         body: |
-          Changes in this Release
-            - First Change
-              - Second Change
+         See changelog
         draft: false
         prerelease: false
 
