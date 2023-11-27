@@ -37,8 +37,8 @@ jobs:
 
     - name: silly step
       run: |
-          echo hello > hello.txt
-          git add hello
+          echo "hello" > ./hello.txt
+          git add hello.txt
           git commit -m 'hello'
           git tag vTag
           git push origin
