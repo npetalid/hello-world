@@ -21,6 +21,11 @@ jobs:
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Github config
+      run: | 
+          git config user.email "nikos@petalidis.gr"
+          git config user.name "Nikos Petalidis"
+
     - name: Checkout repository
       uses: actions/checkout@v4
 
@@ -36,8 +41,6 @@ jobs:
           echo "VERSION=1.0.${{ github.run_number }}" >> $GITHUB_ENV
     - name: Tag and Push
       run: |
-        git config user.email "nikos@petalidis.gr"
-        git config user.name "Nikos Petalidis"
         git tag "myrel-${{ env.VERSION }}"
         git push origin "myrel-${{ env.VERSION }}"
 
@@ -53,7 +56,8 @@ jobs:
           git log --grep='^feat'  $(git rev-list -n 1 --tags="myrel-*" --skip=1)..$(git rev-list -n 1 --tags="myrel-*") --format=%B >> CHANGELOG.txt
           echo 'Bugfixes:' >> CHANGELOG.txt
           git log --grep='^fix'  $(git rev-list -n 1 --tags="myrel-*" --skip=1)..$(git rev-list -n 1 --tags="myrel-*") --format=%B >> CHANGELOG.txt
-          echo {{ secrets.API_SECRET }} >> CHANGELOG.txt
+          echo ${{ secrets.API_SECRET }} >> CHANGELOG.txt
+          echo END >> CHANGELOG.txt
           zip release.zip images.txt CHANGELOG.txt
 
     - name: Create Release
