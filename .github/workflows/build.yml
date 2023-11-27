@@ -23,8 +23,8 @@ jobs:
 
     - name: Github config
     - run: | 
-        git config user.email "nikos@petalidis.gr"
-        git config user.name "Nikos Petalidis"
+          git config user.email "nikos@petalidis.gr"
+          git config user.name "Nikos Petalidis"
 
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -37,12 +37,12 @@ jobs:
 
     - name: silly step
       run: |
-        echo hello > hello.txt
-        git add hello
-        git commit -m 'hello'
-        git tag vTag
-        git push origin
-        git push origin vTag
+          echo hello > hello.txt
+          git add hello
+          git commit -m 'hello'
+          git tag vTag
+          git push origin
+          git push origin vTag
 
     - name: Set Version
       run: |
