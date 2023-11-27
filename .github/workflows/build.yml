@@ -22,7 +22,7 @@ jobs:
             password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Github config
-    - run: | 
+      run: | 
           git config user.email "nikos@petalidis.gr"
           git config user.name "Nikos Petalidis"
 
