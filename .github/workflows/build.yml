@@ -1,14 +1,13 @@
 name: TestBuild
 
 on:
-  workflow_dispatch:
-
   push:
     branches:
       - stable
   pull_request:
     branches:
       - stable
+  workflow_dispatch:
 
 jobs:
   build:
