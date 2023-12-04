@@ -3,11 +3,8 @@ name: TestBuild
 on:
   push:
     branches:
-      - stable
-  pull_request:
-    branches:
-      - stable
-  workflow_dispatch:
+      - stable # run build whenever we push to a branch called stab;e
+  workflow_dispatch: # or run it manually
 
 jobs:
   build:
@@ -52,12 +49,12 @@ jobs:
     - name: Create release files
       run: |
           echo 'Docker file: ghcr.io/npetalid/app:1.0.${{ github.run_number }}' > images.txt
+          export LAST_TAG=`git for-each-ref 'refs/tags/myrel-*'  --sort=-authordate  --format='%(refname:short)' --count=1`
+          export PENULTIMATE_TAG=`git for-each-ref 'refs/tags/myrel-*'  --sort=-authordate  --format='%(refname:short)' --count=2 | grep -v $LAST_TAG`
           echo 'Feats:' > CHANGELOG.txt
-          git log --grep='^feat'  $(git rev-list -n 1 --tags="myrel-*" --skip=1)..$(git rev-list -n 1 --tags="myrel-*") --format=%B >> CHANGELOG.txt
-          echo 'Bugfixes:' >> CHANGELOG.txt
-          git log --grep='^fix'  $(git rev-list -n 1 --tags="myrel-*" --skip=1)..$(git rev-list -n 1 --tags="myrel-*") --format=%B >> CHANGELOG.txt
-          echo ${{ secrets.API_SECRET }} >> CHANGELOG.txt
-          echo END >> CHANGELOG.txt
+          git log --grep='^feat'   $PENULTIMATE_TAG..$LAST_TAG  --format=%B >> CHANGELOG.md
+          echo '## Bugfixes' >> CHANGELOG.md
+          git log --grep='^fix'  $PENULTIMATE_TAG..$LAST_TAG  --format=%B >> CHANGELOG.md
           zip release.zip images.txt CHANGELOG.txt
 
     - name: Create Release
