@@ -69,7 +69,7 @@ jobs:
     - name: Create release files
       run: |
         echo 'Docker file: ghcr.io/npetalid/app:1.0.${{ github.run_number }}' > images.txt
-        cat ${{steps.build_changelog.outputs.changelog}} > CHANGELOG.md
+        echo ${{steps.build_changelog.outputs.changelog}} > CHANGELOG.md
         zip release.zip CHANGELOG.md images.txt
     - name: Upload Release Asset
       id: upload-release-asset
