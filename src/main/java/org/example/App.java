@@ -10,6 +10,9 @@ public class App
     {
         // Fix issue 1
         // Fix another issue
+        // Do something
+        // Do something else
+        // Fix 16
         System.out.println( "Hello Nikos!" );
         System.out.println( "What a nice day!" );
 
