@@ -45,15 +45,14 @@ jobs:
         git fetch --tags
         export LAST_TAG=`git for-each-ref 'refs/tags/myrel-*'  --sort=-authordate  --format='%(refname:short)' --count=1`
 
-
     - name: "Build Changelog"
       id: build_changelog
-      uses: mikepenz/release-changelog-builder-action@v4.1.0
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        fromTag: ${{ env.LAST_TAG }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        echo '# Release notes (${{ env.VERSION }})'  > CHANGELOG.md
+        echo '## Feats' >> CHANGELOG.md
+        git log --grep='^feat'   $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
+        echo '## Bugfixes' >> CHANGELOG.md
+        git log --grep='^fix'  $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
 
     - name: Create Release
       id: create_release
