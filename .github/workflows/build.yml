@@ -42,6 +42,7 @@ jobs:
       run: |
         docker build -t ghcr.io/npetalid/app:latest -t ghcr.io/npetalid/app:1.0.${{ github.run_number }} .
         docker push --all-tags ghcr.io/npetalid/app
+        git fetch --tags
         export LAST_TAG=`git for-each-ref 'refs/tags/myrel-*'  --sort=-authordate  --format='%(refname:short)' --count=1`
 
     - name: "Build Changelog"
