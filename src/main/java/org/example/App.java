@@ -13,6 +13,8 @@ public class App
         // Do something
         // Do something else
         // Fix 16
+        // Hello
+        
         System.out.println( "Hello Nikos!" );
         System.out.println( "What a nice day!" );
 
