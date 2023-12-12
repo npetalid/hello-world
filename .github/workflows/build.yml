@@ -18,13 +18,14 @@ jobs:
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Github config
-      run: | 
-          git config user.email "nikos@petalidis.gr"
-          git config user.name "Nikos Petalidis"
 
     - name: Checkout repository
       uses: actions/checkout@v4
+
+    - name: Github config
+      run: |
+        git config user.email "nikos@petalidis.gr"
+        git config user.name "Nikos Petalidis"
 
     - name: Echo build number
       run: echo ${{github.run_number}}
