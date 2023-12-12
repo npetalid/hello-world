@@ -62,7 +62,7 @@ jobs:
       with:
         tag_name: myrel-${{ env.VERSION }}
         release_name: Release ${{ env.VERSION }}
-        body_path: ${{steps.build_changelog.outputs.changelog}}
+        body: ${{steps.build_changelog.outputs.changelog}}
         draft: false
         prerelease: false
 
