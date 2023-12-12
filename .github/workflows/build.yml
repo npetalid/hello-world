@@ -50,12 +50,11 @@ jobs:
       id: build_changelog
       run: |
         export LAST_TAG=`git for-each-ref 'refs/tags/myrel-*'  --sort=-authordate  --format='%(refname:short)' --count=1`
-        export PENULTIMATE_TAG=`git for-each-ref 'refs/tags/myrel-*'  --sort=-authordate  --format='%(refname:short)' --count=2 | grep -v $LAST_TAG`
         echo '# Release notes (${{ env.VERSION }})'  > CHANGELOG.md
         echo '## Feats' >> CHANGELOG.md
-        git log --grep='^feat'   $PENULTIMATE_TAG..HEAD  --format=%B >> CHANGELOG.md
+        git log --merges --grep='^feat' $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
         echo '## Bugfixes' >> CHANGELOG.md
-        git log --grep='^fix'  $PENULTIMATE_TAG..HEAD  --format=%B >> CHANGELOG.md
+        git log --merges --grep='^fix'  $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
 
     - name: Create Release
       id: create_release
