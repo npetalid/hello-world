@@ -64,14 +64,13 @@ jobs:
       with:
         tag_name: myrel-${{ env.VERSION }}
         release_name: Release ${{ env.VERSION }}
-        body: ${{steps.build_changelog.outputs.changelog}}
+        body_path: ./CHANGELOG.md
         draft: false
         prerelease: false
 
     - name: Create release files
       run: |
         echo 'Docker file: ghcr.io/npetalid/app:1.0.${{ github.run_number }}' > images.txt
-        echo ${{steps.build_changelog.outputs.changelog}} > CHANGELOG.md
         zip release.zip CHANGELOG.md images.txt
     - name: Upload Release Asset
       id: upload-release-asset
