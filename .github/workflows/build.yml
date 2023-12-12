@@ -46,16 +46,15 @@ jobs:
         docker push --all-tags ghcr.io/npetalid/app
         git fetch --tags
         export LAST_TAG=`git for-each-ref 'refs/tags/myrel-*'  --sort=-authordate  --format='%(refname:short)' --count=1`
-
-
-    - name: "Build Changelog"
+    -
+      name: "Build Changelog"
       id: build_changelog
-      uses: mikepenz/release-changelog-builder-action@v4.1.0
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        fromTag: ${{ env.LAST_TAG }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+          echo '# Release notes (${{ env.VERSION }})'  > CHANGELOG.md
+          echo '## Feats' >> CHANGELOG.md
+          git log --grep='^feat'   $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
+          echo '## Bugfixes' >> CHANGELOG.md
+          git log --grep='^fix'  $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
 
     - name: Create Release
       id: create_release
@@ -65,14 +64,13 @@ jobs:
       with:
         tag_name: myrel-${{ env.VERSION }}
         release_name: Release ${{ env.VERSION }}
-        body: ${{steps.build_changelog.outputs.changelog}}
+        body_path: ./CHANGELOG.md
         draft: false
         prerelease: false
 
     - name: Create release files
       run: |
         echo 'Docker file: ghcr.io/npetalid/app:1.0.${{ github.run_number }}' > images.txt
-        echo ${{steps.build_changelog.outputs.changelog}} > CHANGELOG.md
         zip release.zip CHANGELOG.md images.txt
     - name: Upload Release Asset
       id: upload-release-asset
