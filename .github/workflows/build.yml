@@ -45,14 +45,15 @@ jobs:
 
     - name: Build docker
       run: |
-        docker build -t ghcr.io/npetalid/app:latest -t ghcr.io/npetalid/app:1.0.${{ github.run_number }} .
-        docker push --all-tags ghcr.io/npetalid/app
-        git fetch --tags
+#        docker build -t ghcr.io/npetalid/app:latest -t ghcr.io/npetalid/app:1.0.${{ github.run_number }} .
+#        docker push --all-tags ghcr.io/npetalid/app
 
     - name: "Build Changelog"
       id: build_changelog
       run: |
+        git fetch --tags
         export LAST_TAG=`git for-each-ref 'refs/tags/myrel-*'  --sort=-authordate  --format='%(refname:short)' --count=1`
+        echo $LAST_TAG
         echo '# Release notes (${{ env.VERSION }})'  > LATEST.md
         echo 'Docker file: ghcr.io/npetalid/app:1.0.${{ github.run_number }}' >> LATEST.md
         echo '## Feats' >> LATEST.md
