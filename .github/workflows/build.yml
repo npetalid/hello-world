@@ -64,7 +64,7 @@ jobs:
         fi
         cat LATEST.md > NEW_CHANGELOG.md && cat CHANGELOG.md >> NEW_CHANGELOG.md && mv NEW_CHANGELOG.md CHANGELOG.md
         git add CHANGELOG.md
-        git commit -m 'chore: Updated CHANGELOG.md"
+        git commit -m 'chore: Updated CHANGELOG.md'
         git push
 
     - name: Create Release
