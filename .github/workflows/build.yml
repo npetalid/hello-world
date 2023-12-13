@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - stable
+    paths:
+      - '**'
+      - '!CHANGELOG.md'
   workflow_dispatch:
 
 jobs:
@@ -50,12 +53,19 @@ jobs:
       id: build_changelog
       run: |
         export LAST_TAG=`git for-each-ref 'refs/tags/myrel-*'  --sort=-authordate  --format='%(refname:short)' --count=1`
-        echo '# Release notes (${{ env.VERSION }})'  > CHANGELOG.md
-        echo 'Docker file: ghcr.io/npetalid/app:1.0.${{ github.run_number }}' >> CHANGELOG.md
-        echo '## Feats' >> CHANGELOG.md
-        git log --no-merges --grep='^feat' $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
-        echo '## Bugfixes' >> CHANGELOG.md
-        git log --no-merges --grep='^fix'  $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
+        echo '# Release notes (${{ env.VERSION }})'  > LATEST.md
+        echo 'Docker file: ghcr.io/npetalid/app:1.0.${{ github.run_number }}' >> LATEST.md
+        echo '## Feats' >> LATEST.md
+        git log --no-merges --grep='^feat' $LAST_TAG..HEAD  --format=%B >> LATEST.md
+        echo '## Bugfixes' >> LATEST.md
+        git log --no-merges --grep='^fix'  $LAST_TAG..HEAD  --format=%B >> LATEST.md
+        if ! [ -e CHANGELOG.md ] ; then
+          touch CHANGELOG.md
+        fi
+        cat LATEST.md > NEW_CHANGELOG.md && cat CHANGELOG.md >> NEW_CHANGELOG.md && mv NEW_CHANGELOG.md CHANGELOG.md
+        git add CHANGELOG.md
+        git commit -m 'chore: Updated CHANGELOG.md"
+        git push
 
     - name: Create Release
       id: create_release
@@ -65,8 +75,8 @@ jobs:
       with:
         tag: myrel-${{ env.VERSION }}
         commit: "stable"
-        bodyFile: "CHANGELOG.md"
-        artifacts: "myrel-${{ env.VERSION }}.tgz"
+        bodyFile: "LATEST.md"
+        artifacts: "CHANGELOG.md"
         draft: false
         prerelease: false
 
