@@ -51,10 +51,14 @@ jobs:
       run: |
         export LAST_TAG=`git for-each-ref 'refs/tags/myrel-*'  --sort=-authordate  --format='%(refname:short)' --count=1`
         echo '# Release notes (${{ env.VERSION }})'  > CHANGELOG.md
+        echo 'Docker file: ghcr.io/npetalid/app:1.0.${{ github.run_number }}' >> CHANGELOG.md
         echo '## Feats' >> CHANGELOG.md
         git log --no-merges --grep='^feat' $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
         echo '## Bugfixes' >> CHANGELOG.md
         git log --no-merges --grep='^fix'  $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
+    - name: Create release files
+      run: |
+        tar cvzf myrel-${{ env.VERSION }}.tgz .
 
     - name: Create Release
       id: create_release
@@ -64,25 +68,11 @@ jobs:
       with:
         tag: myrel-${{ env.VERSION }}
         commit: "stable"
-        release_name: Release ${{ env.VERSION }}
         bodyFile: "CHANGELOG.md"
+        artifacts: "myrel-${{ env.VERSION }}.tgz"
         draft: false
         prerelease: false
 
-    - name: Create release files
-      run: |
-        echo 'Docker file: ghcr.io/npetalid/app:1.0.${{ github.run_number }}' > images.txt
-        zip release.zip CHANGELOG.md images.txt
-    - name: Upload Release Asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: ./release.zip
-        asset_name: release.zip
-        asset_content_type: application/zip
     - name: Tag and Push
       run: |
         git tag "myrel-${{ env.VERSION }}"
