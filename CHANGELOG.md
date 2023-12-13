@@ -1,3 +1,10 @@
+# Release notes (1.0.61)
+Docker file: ghcr.io/npetalid/app:1.0.61
+## Feats
+feat: What will heppen now (#64)
+
+
+## Bugfixes
 # Release notes (1.0.60)
 Docker file: ghcr.io/npetalid/app:1.0.60
 ## Feats
