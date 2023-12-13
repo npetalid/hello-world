@@ -52,19 +52,20 @@ jobs:
         export LAST_TAG=`git for-each-ref 'refs/tags/myrel-*'  --sort=-authordate  --format='%(refname:short)' --count=1`
         echo '# Release notes (${{ env.VERSION }})'  > CHANGELOG.md
         echo '## Feats' >> CHANGELOG.md
-        git log --merges --grep='^feat' $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
+        git log --no-merges --grep='^feat' $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
         echo '## Bugfixes' >> CHANGELOG.md
-        git log --merges --grep='^fix'  $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
+        git log --no-merges --grep='^fix'  $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
 
     - name: Create Release
       id: create_release
-      uses: actions/create-release@v1
+      uses: ncipollo/release-action@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: myrel-${{ env.VERSION }}
+        tag: myrel-${{ env.VERSION }}
+        commit: "stable"
         release_name: Release ${{ env.VERSION }}
-        body_path: ./CHANGELOG.md
+        bodyFile: "CHANGELOG.md"
         draft: false
         prerelease: false
 
