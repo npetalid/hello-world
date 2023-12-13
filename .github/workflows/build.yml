@@ -56,9 +56,6 @@ jobs:
         git log --no-merges --grep='^feat' $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
         echo '## Bugfixes' >> CHANGELOG.md
         git log --no-merges --grep='^fix'  $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
-    - name: Create release files
-      run: |
-        tar cvzf myrel-${{ env.VERSION }}.tgz .
 
     - name: Create Release
       id: create_release
