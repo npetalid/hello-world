@@ -52,9 +52,9 @@ jobs:
         export LAST_TAG=`git for-each-ref 'refs/tags/myrel-*'  --sort=-authordate  --format='%(refname:short)' --count=1`
         echo '# Release notes (${{ env.VERSION }})'  > CHANGELOG.md
         echo '## Feats' >> CHANGELOG.md
-        git log --merges --grep='^feat' $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
+        git log --no-merges --grep='^feat' $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
         echo '## Bugfixes' >> CHANGELOG.md
-        git log --merges --grep='^fix'  $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
+        git log --no-merges --grep='^fix'  $LAST_TAG..HEAD  --format=%B >> CHANGELOG.md
 
     - name: Create Release
       id: create_release
