@@ -26,5 +26,5 @@ jobs:
     - name: Build docker
       run: |
         echo ${{ github.ref_name }}
-        docker tag -t ghcr.io/npetalid/app:latest -t ghcr.io/npetalid/app-prod:latest
+        docker tag ghcr.io/npetalid/app:latest -t ghcr.io/npetalid/app-prod:latest
 
