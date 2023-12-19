@@ -1,3 +1,12 @@
+# Release notes (1.0.65)
+Docker file: ghcr.io/npetalid/app:1.0.65
+## Feats
+
+## Bugfixes
+fix: make releases draft
+
+
+---
 # Release notes (1.0.64)
 Docker file: ghcr.io/npetalid/app:1.0.64
 ## Feats
