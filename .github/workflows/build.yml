@@ -1,7 +1,7 @@
 name: TestBuild
 
 on:
-  push:
+  pull_request:
     branches:
       - stable
     paths:
@@ -81,7 +81,7 @@ jobs:
         commit: "stable"
         bodyFile: "CHANGELOG.md"
         artifacts: "CHANGELOG.md"
-        draft: false
+        draft: true
         prerelease: false
 
     - name: Tag and Push
