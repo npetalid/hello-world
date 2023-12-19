@@ -27,4 +27,5 @@ jobs:
       run: |
         echo ${{ github.ref_name }}
         docker tag ghcr.io/npetalid/app:latest ghcr.io/npetalid/app-prod:latest
+        docker push ghcr.io/npetalid/app-prod:latest
 
