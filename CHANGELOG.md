@@ -1,3 +1,12 @@
+# Release notes (1.0.67)
+Docker file: ghcr.io/npetalid/app:1.0.67
+## Feats
+
+## Bugfixes
+fix: rename docker image1
+
+
+---
 # Release notes (1.0.66)
 Docker file: ghcr.io/npetalid/app:1.0.66
 ## Feats
