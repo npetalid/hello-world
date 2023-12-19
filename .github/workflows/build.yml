@@ -1,7 +1,7 @@
 name: TestBuild
 
 on:
-  pull_request:
+  push:
     branches:
       - stable
     paths:
