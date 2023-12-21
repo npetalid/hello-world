@@ -1,3 +1,14 @@
+# Release notes (1.0.81)
+Docker file: ghcr.io/npetalid/app:1.0.81
+## Feats
+
+## Bugfixes
+fix: fixed jq
+
+
+---
+<details>
+<summary> Previous versions </summary>
 # Release notes (1.0.80)
 Docker file: ghcr.io/npetalid/app:1.0.80
 ## Feats
@@ -212,5 +223,6 @@ feat: Made changelog part of the repo (#55)
 ## Bugfixes
 fix: removed unnecessary tgz (#51)
 
+</details>
 </details>
 </details>
