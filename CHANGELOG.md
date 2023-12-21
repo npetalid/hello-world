@@ -1,3 +1,14 @@
+# Release notes (1.0.74)
+Docker file: ghcr.io/npetalid/app:1.0.74
+## Feats
+
+## Bugfixes
+fix: Fixed input
+
+
+---
+<details>
+<summary> Previous versions </summary>
 # Release notes (1.0.73)
 Docker file: ghcr.io/npetalid/app:1.0.73
 ## Feats
