@@ -19,6 +19,12 @@ jobs:
 
     - name: Get latest Github release
       run: |
+        echo $${ github.event}
+        echo ${{ github.event.isLatest}
+        echo ${{ github.event.isDraft}
+        echo ${{ github.event.isPrerelease}
+        echo ${{ github.event_name}
+        echo ${{ github.event_type}
         response=$(curl -L \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
