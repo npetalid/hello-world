@@ -28,6 +28,7 @@ jobs:
       id: print-latest-release
       run: |
         echo ${{ steps.nodejs.etch-latest-release.tag_name }}
+        echo "${{ github.ref_name }}"
 
 
 #    - name: Build docker
