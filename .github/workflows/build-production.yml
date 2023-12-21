@@ -2,7 +2,7 @@ name: Production Build
 
 on:
   release:
-    types: [published]
+    types: [published, deleted]
   workflow_dispatch:
 
 jobs:
@@ -17,15 +17,22 @@ jobs:
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
 
-
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    - name: Fetch latest release
+      id: fetch-latest-release
+      uses: thebritican/fetch-latest-release@v1
       with:
-        fetch-depth: 0
+        github_token: ${{ github.token }}
 
-    - name: Build docker
+    - name: Print values
+      id: print-latest-release
       run: |
-        echo ${{ github.ref_name }}
-        docker tag ghcr.io/npetalid/app:latest ghcr.io/npetalid/app-prod:latest
-        docker push ghcr.io/npetalid/app-prod:latest
+        echo ${{ steps.nodejs.etch-latest-release.tag_name }}
+        echo ${{ steps.nodejs.etch-latest-release.draft }}
+        echo ${{ steps.nodejs.etch-latest-release.prerelease }}
+
+#    - name: Build docker
+#      run: |
+#        echo ${{ github.ref_name }}
+#        docker tag ghcr.io/npetalid/app:latest ghcr.io/npetalid/app-prod:latest
+#        docker push ghcr.io/npetalid/app-prod:latest
 
