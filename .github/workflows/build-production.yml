@@ -19,16 +19,16 @@ jobs:
 
     - name: Fetch latest release
       id: fetch-latest-release
-      uses: thebritican/fetch-latest-release@v2
+      uses: InsonusK/get-latest-release@v1.0.1
       with:
+        exclude_types: draft|prerelease
         github_token: ${{ github.token }}
 
     - name: Print values
       id: print-latest-release
       run: |
         echo ${{ steps.nodejs.etch-latest-release.tag_name }}
-        echo ${{ steps.nodejs.etch-latest-release.draft }}
-        echo ${{ steps.nodejs.etch-latest-release.prerelease }}
+
 
 #    - name: Build docker
 #      run: |
