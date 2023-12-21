@@ -19,7 +19,7 @@ jobs:
 
     - name: Get latest Github release
       run: |
-        echo ${{ github.event | tojson }}
+        echo ${{ toJSON(github.event) }}
         echo ${{ github.event.is_latest }}
         echo ${{ github.event.is_draft }}
         echo ${{ github.event.is_prerelease }}
