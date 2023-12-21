@@ -1,3 +1,14 @@
+# Release notes (1.0.75)
+Docker file: ghcr.io/npetalid/app:1.0.75
+## Feats
+feat: removed get latest action
+
+
+## Bugfixes
+
+---
+<details>
+<summary> Previous versions </summary>
 # Release notes (1.0.74)
 Docker file: ghcr.io/npetalid/app:1.0.74
 ## Feats
