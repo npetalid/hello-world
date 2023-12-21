@@ -69,7 +69,7 @@ jobs:
           touch CHANGELOG.md
         fi
         cat CHANGELOG.md >> LATEST.md && mv LATEST.md CHANGELOG.md
-        echo '</details>' >> LATEST.md
+        echo '</details>' >> CHANGELOG.md
         git add CHANGELOG.md
         git commit -m 'chore: Updated CHANGELOG.md'
         git push
