@@ -63,12 +63,13 @@ jobs:
         git log --no-merges --grep='^fix'  $LAST_TAG..HEAD  --format=%B >> LATEST.md
         echo '' >> LATEST.md
         echo '---' >> LATEST.md
-        echo '>!' >> LATEST.md
+        echo '<details>' >> LATEST.md
+        echo '<summary> Previous versions </summary>' >> LATEST.md
         if ! [ -e CHANGELOG.md ] ; then
           touch CHANGELOG.md
         fi
         cat CHANGELOG.md >> LATEST.md && mv LATEST.md CHANGELOG.md
-        echo '!<' >> LATEST.md
+        echo '</details>' >> LATEST.md
         git add CHANGELOG.md
         git commit -m 'chore: Updated CHANGELOG.md'
         git push
