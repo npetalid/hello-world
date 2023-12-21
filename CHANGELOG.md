@@ -1,3 +1,24 @@
+# Release notes (1.0.73)
+Docker file: ghcr.io/npetalid/app:1.0.73
+## Feats
+feat: Added collapsed sections
+
+feat: Added collapsed sections
+
+feat: Added collapsed sections
+
+feat: Added rollback
+
+
+## Bugfixes
+fix: changes latest release action
+
+fix: Added rollback
+
+
+---
+<details>
+<summary> Previous versions </summary>
 # Release notes (1.0.72)
 Docker file: ghcr.io/npetalid/app:1.0.72
 ## Feats
