@@ -22,7 +22,7 @@ jobs:
       uses: InsonusK/get-latest-release@v1.0.1
       with:
         exclude_types: draft|prerelease
-        github_token: ${{ github.token }}
+        my_token: ${{ github.token }}
 
     - name: Print values
       id: print-latest-release
