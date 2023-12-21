@@ -19,7 +19,7 @@ jobs:
 
     - name: Get latest Github release
       run: |
-        response = $(curl -L \
+        response=$(curl -L \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
