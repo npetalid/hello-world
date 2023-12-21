@@ -19,7 +19,7 @@ jobs:
 
     - name: Get latest Github release
       run: |
-        echo $${ github.event }}
+        echo ${{ github.event }}
         echo ${{ github.event.isLatest }}
         echo ${{ github.event.isDraft }}
         echo ${{ github.event.isPrerelease }}
@@ -33,7 +33,6 @@ jobs:
 
         # Check if the curl request was successful (HTTP status code 2xx)
         if [ $? -eq 0 ]; then
-            echo $response
           # Use jq to extract the tag_name from the JSON response
             echo "TAG=$(echo "$response" | jq -r '.tag_name')" >> $GITHUB_ENV
         else
