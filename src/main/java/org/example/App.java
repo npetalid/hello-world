@@ -12,7 +12,7 @@ public class App
         // Fix another issue
         // change
         // This is it
-        System.out.println( "Hello Nikos now!" );
+        System.out.println( "Hello Nikos now1!" );
         System.out.println( "What a nice day!" );
 
 
