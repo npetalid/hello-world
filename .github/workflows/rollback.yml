@@ -49,7 +49,7 @@ jobs:
                 docker tag ghcr.io/npetalid/app:${{ env.LATEST_VERSION }} ghcr.io/npetalid/app:latest
                 docker push ghcr.io/npetalid/app:latest
             else
-              echo "Nothing to do"
+              echo "Nothing to do."
               exit 0
             fi
         else
