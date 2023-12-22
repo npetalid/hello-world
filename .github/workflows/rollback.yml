@@ -51,6 +51,7 @@ jobs:
             else
               echo "Nothing to do"
               exit 0
+            fi
         else
              exit -1
         fi
