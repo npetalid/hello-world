@@ -1,3 +1,15 @@
+# Release notes (1.0.97)
+Docker file: ghcr.io/npetalid/app:1.0.97
+## Feats
+
+## Bugfixes
+fix: fix more15
+
+
+---
+<details>
+<summary> Previous versions </summary>
+
 # Release notes (1.0.96)
 Docker file: ghcr.io/npetalid/app:1.0.96
 ## Feats
@@ -408,3 +420,5 @@ fix: removed unnecessary tgz (#51)
 </details>
 </details>
 </details>
+</details>
+
