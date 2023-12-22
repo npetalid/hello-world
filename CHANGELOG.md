@@ -1,3 +1,15 @@
+# Release notes (1.0.105)
+Docker file: ghcr.io/npetalid/app:1.0.105
+## Feats
+
+## Bugfixes
+fix: Changed scode3
+
+
+---
+<details>
+<summary> Previous versions </summary>
+
 # Release notes (1.0.104)
 Docker file: ghcr.io/npetalid/app:1.0.104
 ## Feats
@@ -504,6 +516,8 @@ fix: removed unnecessary tgz (#51)
 </details>
 </details>
 </details>
+</details>
+
 </details>
 
 </details>
