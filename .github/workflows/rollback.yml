@@ -19,7 +19,7 @@ jobs:
 
     - name: Get latest Github release
       run: |
-        deleted_tag=$( echo ${{ toJSON(github.event) }} | sed 's/\\r\\n/\\\\n/g' |  jq -r '.release.tag_name')
+        deleted_tag=$( ${{ toJSON(github.event) }} | sed 's/\\r\\n/\\\\n/g' |  jq -r '.release.tag_name')
         echo $deleted_tag
         response=$(curl -L \
           -H "Accept: application/vnd.github+json" \
