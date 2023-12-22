@@ -19,9 +19,8 @@ jobs:
 
     - name: Get latest Github release
       run: |
-        echo ${{ toJSON(github.event) }}
-        echo ${{ github.event_name }}
-        echo ${{ github.event_type }}
+        deleted_tag=$( echo ${{ toJSON(github.event) }} | sed 's/\\r\\n/\\\\n/g' |  jq -r '.release.tag_name')
+        echo $deleted_tag
         response=$(curl -L \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
@@ -31,7 +30,6 @@ jobs:
         # Check if the curl request was successful (HTTP status code 2xx)
         if [ $? -eq 0 ]; then
           # Use jq to extract the tag_name from the JSON response
-            echo $response > response.txt
             echo "TAG=$(echo "$response" | jq -r '.tag_name')" >> $GITHUB_ENV
         else
           exit -1
