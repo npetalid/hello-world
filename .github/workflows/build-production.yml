@@ -25,7 +25,7 @@ jobs:
       run: |
         echo ${{ github.ref_name }}
         echo ${{ env.VERSION }}
-        docker build -t ghcr.io/npetalid/app:${{ env.VERSION }}  ghcr.io/npetalid/app:latest
+        docker build -t ghcr.io/npetalid/app:${{ env.VERSION }}  -t ghcr.io/npetalid/app:latest .
         docker push ghcr.io/npetalid/app:${{ env.VERSION }}
         docker push ghcr.io/npetalid/app:latest
 
