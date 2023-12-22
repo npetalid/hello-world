@@ -17,11 +17,15 @@ jobs:
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Get latest Github release
+    - name: Get deleted version
       run: |
-        cat <<< '${{ toJSON(github.event) }}' > context.txt
-        deleted_tag=$(sed 's/\\r\\n/\\\\n/g' context.txt |  jq -r '.release.tag_name')
-        echo $deleted_tag
+        echo "DELETED_VERSION=$(echo "${{ github.ref_name }}" | cut -d'-' -f2)" >> $GITHUB_ENV
+#        cat <<< '${{ toJSON(github.event) }}' > context.txt
+#        deleted_tag=$(sed 's/\\r\\n/\\\\n/g' context.txt |  jq -r '.release.tag_name')
+#        DELETED_VERSION=$(echo $deleted_tag | cut -d'-' -f2)" >> $GITHUB_ENV
+
+    - name: Get latest version
+      run: |
         response=$(curl -L \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
@@ -31,13 +35,21 @@ jobs:
         # Check if the curl request was successful (HTTP status code 2xx)
         if [ $? -eq 0 ]; then
           # Use jq to extract the tag_name from the JSON response
-            echo "TAG=$(echo "$response" | jq -r '.tag_name')" >> $GITHUB_ENV
+            echo "LATEST_VERSION=$(echo "$response" | jq -r '.tag_name' | cut -d'-' -f2)" >> $GITHUB_ENV
         else
           exit -1
+
+    - name: Update docker image if deleted was latest
+        deleted_was_latest = $(diff  <(echo `docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/npetalid/app:${{ env.DELETED_VERSION }}`) <  (echo `docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/npetalid/app:latest`))
+        if [ $? -eq 0 ]; then
+             if [ -n "$deleted_was_latest" ]; then
+                echo 'Deleted was latest. Changing latest to ${{ env.LATEST_VERSION }}'
+                docker tag ghcr.io/npetalid/app:${{ env.LATEST_VERSION }} ghcr.io/npetalid/app:latest
+                docker push ghcr.io/npetalid/app:latest
+            else
+              echo "Nothing to do"
+              exit 0
+        else
+             exit -1
         fi
-    - name: Print values
-      id: print-latest-release
-      run: |
-        echo ${{ env.TAG }}
-        echo "${{ github.ref_name }}"
 
