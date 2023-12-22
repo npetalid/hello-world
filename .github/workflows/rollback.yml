@@ -44,7 +44,7 @@ jobs:
       run: |
         deleted_was_latest=$(diff <(echo `docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/npetalid/app:${{ env.DELETED_VERSION }}`) <(echo `docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/npetalid/app:latest`) | tr -d ' ')
         if [ ! -n "$deleted_was_latest" ]; then
-          echo 'Deleted was latest. Changing latest to ${{ env.LATEST_VERSION }}'
+          echo 'Deleted was latest! Changing latest to ${{ env.LATEST_VERSION }}'
           docker tag ghcr.io/npetalid/app:${{ env.LATEST_VERSION }} ghcr.io/npetalid/app:latest
           docker push ghcr.io/npetalid/app:latest
         else
