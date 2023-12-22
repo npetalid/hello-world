@@ -19,7 +19,7 @@ jobs:
 
     - name: Get latest Github release
       run: |
-        cat <<< ${{ toJSON(github.event) }} > context.txt
+        cat <<< '${{ toJSON(github.event) }}' > context.txt
         deleted_tag=$(sed 's/\\r\\n/\\\\n/g' context.txt |  jq -r '.release.tag_name')
         echo $deleted_tag
         response=$(curl -L \
