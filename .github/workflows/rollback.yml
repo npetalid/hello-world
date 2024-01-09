@@ -40,6 +40,7 @@ jobs:
     - name: Update docker image if deleted was latest
       run: |
         docker pull ghcr.io/npetalid/app:${{ env.DELETED_VERSION }}
+        docker pull ghcr.io/npetalid/app:${{ env.LATEST_VERSION }}
         docker pull ghcr.io/npetalid/app:latest
         deleted_was_latest=$(diff <(echo `docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/npetalid/app:${{ env.DELETED_VERSION }}`) <(echo `docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/npetalid/app:latest`) | tr -d ' ')
         if [ -z "$deleted_was_latest" ]; then
