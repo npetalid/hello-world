@@ -1,3 +1,15 @@
+# Release notes (1.0.120)
+Docker file: ghcr.io/npetalid/app:1.0.120
+## Feats
+feat: Added deletion of docker image2
+
+
+## Bugfixes
+
+---
+<details>
+<summary> Previous versions </summary>
+
 # Release notes (1.0.119)
 Docker file: ghcr.io/npetalid/app:1.0.119
 ## Feats
@@ -674,6 +686,8 @@ fix: removed unnecessary tgz (#51)
 </details>
 </details>
 </details>
+</details>
+
 </details>
 
 </details>
