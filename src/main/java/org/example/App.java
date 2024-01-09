@@ -13,7 +13,7 @@ public class App
         // change
         // This is it
         System.out.println( "Hello Nikos 21 3123 1.0.119" );
-        System.out.println( "What a nice day!" );
+        System.out.println( "What a nice d ay!" );
 
 
     }
