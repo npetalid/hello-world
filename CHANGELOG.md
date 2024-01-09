@@ -1,3 +1,15 @@
+# Release notes (1.0.121)
+Docker file: ghcr.io/npetalid/app:1.0.121
+## Feats
+
+## Bugfixes
+fix: fixed rollback
+
+
+---
+<details>
+<summary> Previous versions </summary>
+
 # Release notes (1.0.120)
 Docker file: ghcr.io/npetalid/app:1.0.120
 ## Feats
@@ -686,6 +698,8 @@ fix: removed unnecessary tgz (#51)
 </details>
 </details>
 </details>
+</details>
+
 </details>
 
 </details>
