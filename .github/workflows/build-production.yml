@@ -28,5 +28,7 @@ jobs:
         docker build -t ghcr.io/npetalid/app:${{ env.VERSION }}  -t ghcr.io/npetalid/app:latest .
         docker push ghcr.io/npetalid/app:${{ env.VERSION }}
         docker push ghcr.io/npetalid/app:latest
+#        docker rmi ghcr.io/npetalid/app:${{ env.VERSION }}
+#        docker rmi ghcr.io/npetalid/app:latest
 
 
