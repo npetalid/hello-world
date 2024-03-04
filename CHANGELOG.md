@@ -1,3 +1,15 @@
+# Release notes (1.0.130)
+Docker file: ghcr.io/npetalid/app:1.0.130
+## Feats
+
+## Bugfixes
+fix: Fixed input
+
+
+---
+<details>
+<summary> Previous versions </summary>
+
 # Release notes (1.0.129)
 Docker file: ghcr.io/npetalid/app:1.0.129
 ## Feats
@@ -778,6 +790,8 @@ fix: removed unnecessary tgz (#51)
 </details>
 </details>
 </details>
+</details>
+
 </details>
 
 </details>
