@@ -81,6 +81,9 @@ jobs:
         printf '<details>\n' >> LATEST.md
         printf '<summary> Previous versions </summary>\n' >> LATEST.md
         printf $LATEST_CHANGELOG >> LATEST.md
+        printf $LATEST_CHANGELOG
+        echo 'DIFFERENCE------'
+        echo $LATEST_CHANGELOG
         printf '\n</details>\n' >> LATEST.md
     #    git add CHANGELOG.md
     #    git commit -m 'chore: Updated CHANGELOG.md'
