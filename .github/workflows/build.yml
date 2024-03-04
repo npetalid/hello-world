@@ -75,18 +75,13 @@ jobs:
         echo 'Docker file: ghcr.io/npetalid/app:1.0.${{ github.run_number }}' >> LATEST.md
         echo '## Feats' >> LATEST.md
         git log --no-merges --grep='^feat' $LAST_TAG..HEAD  --format=%B >> LATEST.md
-        echo '' >> LATEST.md
-        echo '## Bugfixes' >> LATEST.md
+        printf '\n## Bugfixes\n' >> LATEST.md
         git log --no-merges --grep='^fix'  $LAST_TAG..HEAD  --format=%B >> LATEST.md
-        echo '' >> LATEST.md
-        echo '---' >> LATEST.md
-        echo '<details>' >> LATEST.md
-        echo '' >> LATEST.md
-        echo '<summary> Previous versions </summary>' >> LATEST.md
-        echo '' >> LATEST.md
-        echo $LATEST_CHANGELOG >> LATEST.md
-        echo '</details>' >> LATEST.md
-        echo '' >> LATEST.md
+        printf '\n---\n' >> LATEST.md
+        printf '<details>\n' >> LATEST.md
+        printf '<summary> Previous versions </summary>\n' >> LATEST.md
+        printf $LATEST_CHANGELOG >> LATEST.md
+        printf '\n</details>\n' >> LATEST.md
     #    git add CHANGELOG.md
     #    git commit -m 'chore: Updated CHANGELOG.md'
     #    git push
