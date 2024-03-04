@@ -60,7 +60,7 @@ jobs:
         if [ $? -eq 0 ]; then
           # Use jq to extract the tag_name from the JSON response
             echo "LATEST_VERSION=$(echo "$response" | jq -r '.tag_name' | cut -d'-' -f2)" >> $GITHUB_ENV
-            echo "$response" | jq -r '.body' 
+            echo "LATEST_CHANGELOG=$(echo "$response" | jq -r '.body')" >> $GITHUB_ENV
         else
           exit -1
         fi
@@ -81,17 +81,15 @@ jobs:
         echo '' >> LATEST.md
         echo '---' >> LATEST.md
         echo '<details>' >> LATEST.md
+        echo '' >> LATEST.md
         echo '<summary> Previous versions </summary>' >> LATEST.md
         echo '' >> LATEST.md
-        if ! [ -e CHANGELOG.md ] ; then
-          touch CHANGELOG.md
-        fi
-        cat CHANGELOG.md >> LATEST.md && mv LATEST.md CHANGELOG.md
-        echo '</details>' >> CHANGELOG.md
-        echo '' >> CHANGELOG.md
-        git add CHANGELOG.md
-        git commit -m 'chore: Updated CHANGELOG.md'
-        git push
+        echo $LATEST_CHANGELOG >> LATEST.md
+        echo '</details>' >> LATEST.md
+        echo '' >> LATEST.md
+    #    git add CHANGELOG.md
+    #    git commit -m 'chore: Updated CHANGELOG.md'
+    #    git push
 
     - name: "Create Some Release"
       id: create_release
@@ -101,8 +99,8 @@ jobs:
       with:
         tag: myrel-${{ env.VERSION }}
         commit: "stable"
-        bodyFile: "CHANGELOG.md"
-        artifacts: "CHANGELOG.md"
+        bodyFile: "LATEST.md"
+        artifacts: "LATEST.md"
         draft: true
         prerelease: false
 
