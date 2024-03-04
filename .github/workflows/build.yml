@@ -82,7 +82,7 @@ jobs:
         printf '<summary> Previous versions </summary>\n' >> LATEST.md
         printf $LATEST_CHANGELOG >> LATEST.md
         printf 'START\n'
-        printf $LATEST_CHANGELOG
+        printf "$LATEST_CHANGELOG"
         printf '\nDIFFERENCE------\n'
         echo $LATEST_CHANGELOG
         printf '\n</details>\n' >> LATEST.md
